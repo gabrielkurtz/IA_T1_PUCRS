@@ -26,7 +26,7 @@ def main():
 
 class Cromossomo:
     def __init__(self, labirinto, tamanho_matriz):
-        self.tentativas = 10
+        self.tentativas = 1000
         self.ultimo_caminho = []
         self.percentual_mutacao = 20
 
@@ -75,16 +75,13 @@ class Cromossomo:
         return movimentos
 
     def calcula_nova_posicao(self, direcao):
-        print("Iniciando calcula_nova_posicao")
         diferenca = self.movimentos[direcao]
-        print("Diferenca: " + str(diferenca))
-        print("Posicao: " + str(self.posicao))
         return (self.posicao[0] + diferenca[0], self.posicao[1] + diferenca[1])
 
     def executa(self):
 
         for i in range(self.tentativas):
-            print(i)
+            print(i, str(self.posicao))
             if(self.deve_mudar_direcao()):
                 direcao = self.nova_direcao()
                 self.direcoes[self.posicao[0]][self.posicao[1]] = direcao
@@ -110,10 +107,9 @@ class Cromossomo:
             direcao = random.randint(1,9)
             while direcao == 5:
                 direcao = random.randint(1,9)
-            print("Chama nova_posicao da nova_direcao")
             nova_posicao = self.calcula_nova_posicao(direcao)
 
-            if 0 <= nova_posicao[0] < self.tamanho_matriz and 0 <= nova_posicao[1] <= self.tamanho_matriz:
+            if 0 <= nova_posicao[0] < self.tamanho_matriz and 0 <= nova_posicao[1] < self.tamanho_matriz:
                 if self.labirinto[nova_posicao[0]][nova_posicao[1]] != "1":
                     posicao_valida = True
 
@@ -121,7 +117,6 @@ class Cromossomo:
 
     def movimenta(self, direcao):
         self.posicao_anterior = self.posicao
-        print("Chama nova_posicao do movimenta")
         self.posicao = self.calcula_nova_posicao(direcao)
 
     def __str__(self):
