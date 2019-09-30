@@ -1,4 +1,5 @@
 import random
+import math
 
 def main():
 
@@ -17,7 +18,8 @@ def main():
     # cromossomo.visitados[0][0] = 9
 
     print(cromossomo)
-        
+
+    POPULACAO_INICIAL=10        
     MUTACAO=0.5
     PREFERENCIA_NOVO=0.2
 
@@ -26,13 +28,18 @@ def main():
 
 class Cromossomo:
     def __init__(self, labirinto, tamanho_matriz):
+        self.tamanho_matriz = tamanho_matriz
+        self.labirinto = labirinto
+        self.posicao = (0,0)
+        self.posicao_anterior = (0,0)
+
         self.tentativas = 1000
         self.ultimo_caminho = []
         self.percentual_mutacao = 20
-
-        self.labirinto = labirinto
-        self.tamanho_matriz = tamanho_matriz
-
+        
+        # Movimentos possiveis e efeito na posição
+        self.movimentos = self.cria_movimentos()
+        
         # Acrescenta informacao extra para cada campo no formato [str,int,int], onde:
         # [1]: 0: campo ainda não foi visitado pelo algoritmo - 1: já foi visitado
         # Guarda a versao inicial para reiniciar nas fases de seleção genética
@@ -44,10 +51,8 @@ class Cromossomo:
         # onde 0 é ausencia de preferencia e 5 não existe.
         self.direcoes = self.cria_direcoes()
 
-        # Movimentos possiveis e efeito na posição
-        self.movimentos = self.cria_movimentos()
-        self.posicao = (0,0)
-        self.posicao_anterior = (0,0)
+        self.encontrou_saida = False
+        
 
     def cria_visitados(self):
         matriz = [[0 for col in range(self.tamanho_matriz)] for row in range(self.tamanho_matriz)]
@@ -60,7 +65,16 @@ class Cromossomo:
         return matriz
 
     def cria_direcoes(self):
-        return [[0 for col in range(self.tamanho_matriz)] for row in range(self.tamanho_matriz)]
+        direcoes = [[0 for col in range(self.tamanho_matriz)] for row in range(self.tamanho_matriz)]
+        for i in range(self.tamanho_matriz):
+            for j in range(self.tamanho_matriz):
+                if self.labirinto[i][j] != '1':
+                    self.posicao = (i,j)
+                    direcoes[i][j] = self.nova_direcao()
+        self.posicao = (0,0)
+        self.posicao_anterior = (0,0)
+        return direcoes
+        
 
     def cria_movimentos(self):
         movimentos = {}
@@ -119,12 +133,31 @@ class Cromossomo:
         self.posicao_anterior = self.posicao
         self.posicao = self.calcula_nova_posicao(direcao)
 
+    def heuristica(self):
+        return math.sqrt(math.pow(self.posicao[0], 2) + math.pow(self.posicao[1], 2))
+
     def __str__(self):
         to_string = ""
         for i in range(self.tamanho_matriz):
             to_string += str(self.labirinto[i]) + " - " + str(self.visitados[i]) + " - " + str(self.direcoes[i]) + "\n"
+        to_string += "Heurística: " + str(self.heuristica()) + " - Posição: " + str(self.posicao) + " - Encontrou: " + str(self.encontrou_saida)
         return to_string
 
+def replica_direcoes(c1, c2, linha_inicial, linha_final):
+    n = c1.tamanho_matriz
+    for i in range(linha_inicial, n):
+        for j in range(n):
+            c2.direcoes[i][j] = c1.direcoes[i][j]
+
+def cruza_cromossomos(c1, c2):
+    n = c1.tamanho_matriz
+    filho_1 = Cromossomo(c1.labirinto, c1.tamanho_matriz)
+    filho_2 = Cromossomo(c1.labirinto, c1.tamanho_matriz)
+    
+    replica_direcoes(c1, filho_1, 0, ((n/2)-1))
+    replica_direcoes(c2, filho_1, n/2, n)
+    replica_direcoes(c2, filho_2, 0, ((n/2)-1))
+    replica_direcoes(c1, filho_2, n/2, n)
 
 if __name__ == "__main__":
     main()
