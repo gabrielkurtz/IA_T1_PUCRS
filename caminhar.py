@@ -3,10 +3,12 @@ import math
 import sys
 import copy
 
+UNICODE = False
+
 LOG_COMPLETO = True
 GERACOES_ENTRE_LOG_SIMPLES = 5
 
-GERACOES = 1000
+GERACOES = 100
 ELITISMO = 2
 TORNEIO = 4
 TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
@@ -60,7 +62,6 @@ def main():
 
     print("----------------------------------------------------------------")
     print("MELHOR CROMOSSOMO")
-    print("----------------------------------------------------------------")
     print(melhor)
 
 
@@ -119,15 +120,26 @@ class Cromossomo:
 
     def cria_movimentos(self):
         movimentos = {}
-        movimentos[1] = [1, -1, "↙"]
-        movimentos[2] = [1, 0, "↓"]
-        movimentos[3] = [1, 1, "↘"]
-        movimentos[4] = [0, -1, "←"]
-        movimentos[6] = [0, 1, "→"]
-        movimentos[7] = [-1, -1, "↖"]
-        movimentos[8] = [-1, 0, "↑"]
-        movimentos[9] = [-1, 1, "↗"]
-        movimentos[0] = [0, 0, "X"]  # Ocorre somente em caso de erro
+        if UNICODE:
+            movimentos[1] = [1, -1, "↙"]
+            movimentos[2] = [1, 0, "↓"]
+            movimentos[3] = [1, 1, "↘"]
+            movimentos[4] = [0, -1, "←"]
+            movimentos[6] = [0, 1, "→"]
+            movimentos[7] = [-1, -1, "↖"]
+            movimentos[8] = [-1, 0, "↑"]
+            movimentos[9] = [-1, 1, "↗"]
+            movimentos[0] = [0, 0, "X"]  # Ocorre somente em caso de erro
+        else:
+            movimentos[1] = [1, -1, "1"]
+            movimentos[2] = [1, 0, "2"]
+            movimentos[3] = [1, 1, "3"]
+            movimentos[4] = [0, -1, "4"]
+            movimentos[6] = [0, 1, "6"]
+            movimentos[7] = [-1, -1, "7"]
+            movimentos[8] = [-1, 0, "8"]
+            movimentos[9] = [-1, 1, "9"]
+            movimentos[0] = [0, 0, "X"]  # Ocorre somente em caso de erro
         return movimentos
 
     def calcula_nova_posicao(self, direcao):
@@ -286,6 +298,8 @@ def executa_geracao(populacao):
 
 
 def nova_geracao(populacao):
+    logar("----------------------------------------------------------------")
+    
     p = []
 
     for i in range(ELITISMO):
@@ -331,6 +345,7 @@ def logar_simples(populacao):
           str(melhor.heuristica()) + " - Encontrou: " + str(melhor.encontrou_saida) + " - Passos: " + str(len(melhor.passos)))
 
 def imprime_labirinto():
+    logar("----------------------------------------------------------------")
     logar("Labirinto: ")
 
     for i in range(tamanho_matriz):
