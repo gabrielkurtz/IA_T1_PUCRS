@@ -17,12 +17,14 @@ MUTACAO_MAXIMA = 50
 TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
 labirinto = []
 tamanho_matriz = 0
+
+# Para setar manualmente o número de passos, modificar no main()
 maximo_passos = 0
 
 contador_cromossomos = 1
 
 alguem_achou_saida = False
-mutacao = MUTACAO_MAXIMA
+mutacao = 10
 
 contador_geracoes = 1
 melhor = None
@@ -42,6 +44,17 @@ def main():
     global labirinto
     for _ in range(tamanho_matriz):
         labirinto.append(f.readline().split())
+
+    print("----------------------------------------------------------------")
+    print("Iniciando Arquivo: " + str(sys.argv[1]))
+    print("Tamanho Matriz:", tamanho_matriz)
+    print("Gerações:", GERACOES)
+    print("População Total:", TAM_POPULACAO_INICIAL)
+    print("Elitismo:", ELITISMO)
+    print("Torneios:", TORNEIO)
+    print("Tamanho Cromossomo:", maximo_passos)
+    print("Mutacao Inicial (Minima/Maxima): " + str(mutacao) + " (" + str(MUTACAO_MINIMA) + "/" + str(MUTACAO_MAXIMA) + ")")
+    print("----------------------------------------------------------------")
 
     imprime_labirinto()
 
@@ -234,12 +247,12 @@ class Cromossomo:
     def __str__(self):
         to_string = "----------------------------------------------------------------\n"
 
-        to_string += ("Cromossomo " + str(self.nome) + "\n")
+        to_string += ("Cromossomo " + str(self.nome) + " - Caminho percorrido - Genes(direções memorizadas)\n")
         for i in range(tamanho_matriz):
             to_string += str(self.visitados[i]) + \
                 " - " + str(self.imprime_setas()[i]) + "\n"
-        to_string += ("Heurística: " + str(self.heuristica()) + " - Posição: " + str(self.posicao) +
-                      " - Encontrou: " + str(self.encontrou_saida) + " - Onde: " + str(self.saida) + " - Passos: " + str(len(self.passos)))
+        to_string += ("Aptidão: " + str(self.heuristica()) + " - Posição: " + str(self.posicao) +
+                      " - Encontrou: " + str(self.encontrou_saida) + " - Passos: " + str(len(self.passos)))
         return to_string.replace("'", "").replace(",", "")
 
 
