@@ -1,14 +1,13 @@
 import random
 import math
 
-GERACOES = 2
-ELITISMO = 5
-TORNEIO = 0
+GERACOES = 10
+ELITISMO = 0
+TORNEIO = 3
 TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
-FATOR_MAXIMO_PASSOS = 3
+FATOR_MAXIMO_PASSOS = 2
 
-MUTACAO_ANTES_DE_ACHAR_SAIDA = 20
-MUTACAO_DEPOIS_DE_ACHAR_SAIDA = 5
+MUTACAO = 5
 
 labirinto = []
 tamanho_matriz = 0
@@ -53,7 +52,7 @@ class Cromossomo:
         self.passos = []
 
         self.tentativas = maximo_passos
-        self.percentual_mutacao = 20
+        self.percentual_mutacao = MUTACAO
 
         # Movimentos possiveis e efeito na posição
         self.movimentos = self.cria_movimentos()
@@ -200,10 +199,12 @@ def cruza_cromossomos(c1, c2):
     filho_1 = Cromossomo()
     filho_2 = Cromossomo()
 
-    replica_direcoes(c1, filho_1, 0, ((tamanho_matriz/2)-1))
-    replica_direcoes(c2, filho_1, tamanho_matriz/2, tamanho_matriz)
-    replica_direcoes(c2, filho_2, 0, ((tamanho_matriz/2)-1))
-    replica_direcoes(c1, filho_2, tamanho_matriz/2, tamanho_matriz)
+    replica_direcoes(c1, filho_1, 0, ((tamanho_matriz//2)-1))
+    replica_direcoes(c2, filho_1, tamanho_matriz//2, tamanho_matriz)
+    replica_direcoes(c2, filho_2, 0, ((tamanho_matriz//2)-1))
+    replica_direcoes(c1, filho_2, tamanho_matriz//2, tamanho_matriz)
+
+    return filho_1, filho_2
 
 
 def inicializa_populacao():
@@ -224,6 +225,27 @@ def nova_geracao(populacao):
     
     for i in range(ELITISMO):
         p.append(populacao[i])
+
+    for t in range(TORNEIO):
+        print("Torneio " + str(t))
+        i = random.randint(0, len(populacao)-1)
+        c_temp1 = populacao[i]
+        i = random.randint(0, len(populacao)-1)
+        c_temp2 = populacao[i]
+        c1 = c_temp1 if c_temp1.heuristica() > c_temp2.heuristica() else c_temp2
+        populacao.remove(c1)
+        
+        i = random.randint(0, len(populacao)-1)
+        c_temp1 = populacao[i]
+        i = random.randint(0, len(populacao)-1)
+        c_temp2 = populacao[i]
+        c2 = c_temp1 if c_temp1.heuristica() > c_temp2.heuristica() else c_temp2
+        populacao.remove(c2)
+
+        filho_1, filho_2 = cruza_cromossomos(c1, c2)
+        p.append(filho_1)
+        p.append(filho_2)
+    
     return p
 
 
