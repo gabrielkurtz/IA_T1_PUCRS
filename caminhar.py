@@ -107,6 +107,7 @@ class Cromossomo:
         movimentos[7] = [-1, -1]
         movimentos[8] = [-1, 0]
         movimentos[9] = [-1, 1]
+        movimentos[0] = [0, 0] # Ocorre somente em caso de erro
         return movimentos
 
     def calcula_nova_posicao(self, direcao):
