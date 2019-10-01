@@ -1,0 +1,67 @@
+----------------------------------------------------------------
+Iniciando Arquivo: labirinto1_10.txt
+Tamanho Matriz: 10
+Gerações: 100
+População Total: 10
+Elitismo: 2
+Torneios: 4
+Tamanho Cromossomo: 100
+Mutacao Inicial (Minima/Maxima): 10 (4/50)
+----------------------------------------------------------------
+-> Melhor Atual - Geracao: 1 - Melhor: Cromossomo 10 - Aptidão: 7.615773105863909 - Encontrou: False - Passos: 100
+-> Melhor Global - Geracao: 1 - Melhor: Cromossomo 10 - Aptidão: 7.615773105863909 - Encontrou: False - Passos: 100
+-> Melhor Atual - Geracao: 5 - Melhor: Cromossomo 35 - Aptidão: 65.14213562373095 - Encontrou: True - Passos: 49
+-> Melhor Global - Geracao: 5 - Melhor: Cromossomo 35 - Aptidão: 65.14213562373095 - Encontrou: True - Passos: 49
+-> Melhor Atual - Geracao: 10 - Melhor: Cromossomo 55 - Aptidão: 10.63014581273465 - Encontrou: False - Passos: 100
+-> Melhor Global - Geracao: 10 - Melhor: Cromossomo 35 - Aptidão: 65.14213562373095 - Encontrou: True - Passos: 49
+-> Melhor Atual - Geracao: 15 - Melhor: Cromossomo 115 - Aptidão: 10.295630140987 - Encontrou: False - Passos: 100
+-> Melhor Global - Geracao: 15 - Melhor: Cromossomo 35 - Aptidão: 65.14213562373095 - Encontrou: True - Passos: 49
+-> Melhor Atual - Geracao: 20 - Melhor: Cromossomo 115 - Aptidão: 96.14213562373095 - Encontrou: True - Passos: 18
+-> Melhor Global - Geracao: 20 - Melhor: Cromossomo 115 - Aptidão: 96.14213562373095 - Encontrou: True - Passos: 18
+-> Melhor Atual - Geracao: 25 - Melhor: Cromossomo 172 - Aptidão: 98.14213562373095 - Encontrou: True - Passos: 16
+-> Melhor Global - Geracao: 25 - Melhor: Cromossomo 162 - Aptidão: 98.14213562373095 - Encontrou: True - Passos: 16
+-> Melhor Atual - Geracao: 30 - Melhor: Cromossomo 229 - Aptidão: 95.14213562373095 - Encontrou: True - Passos: 19
+-> Melhor Global - Geracao: 30 - Melhor: Cromossomo 222 - Aptidão: 99.14213562373095 - Encontrou: True - Passos: 15
+-> Melhor Atual - Geracao: 35 - Melhor: Cromossomo 270 - Aptidão: 100.14213562373095 - Encontrou: True - Passos: 14
+-> Melhor Global - Geracao: 35 - Melhor: Cromossomo 266 - Aptidão: 100.14213562373095 - Encontrou: True - Passos: 14
+-> Melhor Atual - Geracao: 40 - Melhor: Cromossomo 311 - Aptidão: 100.14213562373095 - Encontrou: True - Passos: 14
+-> Melhor Global - Geracao: 40 - Melhor: Cromossomo 266 - Aptidão: 100.14213562373095 - Encontrou: True - Passos: 14
+-> Melhor Atual - Geracao: 45 - Melhor: Cromossomo 356 - Aptidão: 100.14213562373095 - Encontrou: True - Passos: 14
+-> Melhor Global - Geracao: 45 - Melhor: Cromossomo 266 - Aptidão: 100.14213562373095 - Encontrou: True - Passos: 14
+-> Melhor Atual - Geracao: 50 - Melhor: Cromossomo 395 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Global - Geracao: 50 - Melhor: Cromossomo 356 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Atual - Geracao: 55 - Melhor: Cromossomo 430 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Global - Geracao: 55 - Melhor: Cromossomo 356 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Atual - Geracao: 60 - Melhor: Cromossomo 452 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Global - Geracao: 60 - Melhor: Cromossomo 356 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Atual - Geracao: 65 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 65 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 70 - Melhor: Cromossomo 540 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 70 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 75 - Melhor: Cromossomo 579 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 75 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 80 - Melhor: Cromossomo 579 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 80 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 85 - Melhor: Cromossomo 668 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 85 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 90 - Melhor: Cromossomo 707 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 90 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 95 - Melhor: Cromossomo 748 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 95 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 100 - Melhor: Cromossomo 796 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 100 - Melhor: Cromossomo 502 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+----------------------------------------------------------------
+MELHOR CROMOSSOMO
+----------------------------------------------------------------
+Cromossomo 502 - Caminho percorrido - Genes(direções memorizadas)
+[$ 0 1 1 0 0 0 0 0 1] - [↘ ↓ X X ↙ ↙ → ↙ ↘ X]
+[1 $ 0 0 0 1 0 1 0 0] - [X ↘ ↓ ↙ ← X ↓ X ↑ ←]
+[0 0 $ 0 1 1 0 0 1 1] - [→ ↙ ← ↓ X X ↘ ↘ X X]
+[0 1 1 $ 0 1 1 0 0 1] - [↓ X X ↘ ↓ X X ↖ ← X]
+[0 0 0 0 $ 1 1 0 1 1] - [→ → ↗ → ↓ X X ↓ X X]
+[1 1 1 1 $ 1 1 0 1 1] - [X X X X ↓ X X ↘ X X]
+[1 0 1 1 $ 1 1 0 0 0] - [X ↓ X X ↓ X X → ↖ ←]
+[0 0 0 0 $ 1 1 1 1 1] - [↘ ↓ ↙ ↘ ↘ X X X X X]
+[1 0 1 0 0 $ $ 0 1 1] - [X ↗ X ↖ ↘ → ↘ ↓ X X]
+[1 0 1 0 1 0 0 $ $ $] - [X ↑ X ↑ X → → → → ←]
+Aptidão: 102.14213562373095 - Posição: (9 9) - Encontrou: True - Passos: 12

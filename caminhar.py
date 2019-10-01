@@ -14,7 +14,7 @@ TORNEIO = 4
 MUTACAO_MINIMA = 4
 MUTACAO_MAXIMA = 50
 
-TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
+TAM_POPULACAO = ELITISMO + 2*TORNEIO
 labirinto = []
 tamanho_matriz = 0
 
@@ -39,6 +39,7 @@ def main():
     global maximo_passos
     maximo_passos = int(math.pow(tamanho_matriz, FATOR_MAXIMO_PASSOS))
 
+
     # Labirinto conforme no arquivo de entrada
     # [0]: informacao original - E: entrada - S: saída - 0: pode andar - 1: parede
     global labirinto
@@ -49,14 +50,12 @@ def main():
     print("Iniciando Arquivo: " + str(sys.argv[1]))
     print("Tamanho Matriz:", tamanho_matriz)
     print("Gerações:", GERACOES)
-    print("População Total:", TAM_POPULACAO_INICIAL)
+    print("População Total:", TAM_POPULACAO)
     print("Elitismo:", ELITISMO)
     print("Torneios:", TORNEIO)
     print("Tamanho Cromossomo:", maximo_passos)
     print("Mutacao Inicial (Minima/Maxima): " + str(mutacao) + " (" + str(MUTACAO_MINIMA) + "/" + str(MUTACAO_MAXIMA) + ")")
     print("----------------------------------------------------------------")
-
-    imprime_labirinto()
 
     populacao = inicializa_populacao()
 
@@ -284,7 +283,7 @@ def gera_mascara():
 
 def inicializa_populacao():
     populacao_inicial = []
-    for i in range(TAM_POPULACAO_INICIAL):
+    for i in range(TAM_POPULACAO):
         populacao_inicial.append(Cromossomo())
     return populacao_inicial
 
@@ -292,7 +291,10 @@ def executa_geracao(populacao):
     global alguem_achou_saida
     alguem_achou_saida = False
 
-    for i in range(TAM_POPULACAO_INICIAL):
+    logar("----------------------------------------------------------------")
+    logar("GERAÇÃO " + str(contador_geracoes))
+    
+    for i in range(TAM_POPULACAO):
         populacao[i].executa()
     populacao.sort(key=lambda c: c.heuristica(), reverse=True)
     global melhor
@@ -367,7 +369,7 @@ def imprime_labirinto():
         logar(str(labirinto[i]).replace("'", "").replace(",", ""))
 
 def imprime_populacao(populacao):
-    for i in range(TAM_POPULACAO_INICIAL):
+    for i in range(TAM_POPULACAO):
         logar(populacao[i])
 
 if __name__ == "__main__":
