@@ -1,5 +1,6 @@
 import random
 import math
+import sys
 
 GERACOES = 20
 ELITISMO = 3
@@ -19,8 +20,7 @@ alguem_achou_saida = False
 mutacao = MUTACAO_MAXIMA
 
 def main():
-
-    f = open("labirinto4_20.txt", "r")
+    f = open(str(sys.argv[1]), "r")
 
     global tamanho_matriz
     tamanho_matriz = int(f.readline())
