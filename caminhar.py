@@ -7,26 +7,27 @@ TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
 MUTACAO_ANTES_DE_ACHAR_SAIDA = 20
 MUTACAO_DEPOIS_DE_ACHAR_SAIDA = 5
 
+labirinto = []
+tamanho_matriz = 0
 
 def main():
 
     f = open("labirinto1_10.txt", "r")
 
+    global tamanho_matriz
     tamanho_matriz = int(f.readline())
 
     # Labirinto conforme no arquivo de entrada
     # [0]: informacao original - E: entrada - S: saída - 0: pode andar - 1: parede
-    labirinto = []
+    global labirinto
     for i in range(tamanho_matriz):
         labirinto.append(f.readline().split())
 
-    inicializa_populacao(labirinto, tamanho_matriz)
+    inicializa_populacao()
 
 
 class Cromossomo:
-    def __init__(self, labirinto, tamanho_matriz):
-        self.tamanho_matriz = tamanho_matriz
-        self.labirinto = labirinto
+    def __init__(self):
         self.saida = None
         self.encontrou_saida = False
         self.posicao = (0, 0)
@@ -51,22 +52,22 @@ class Cromossomo:
         self.direcoes = self.cria_direcoes()
 
     def cria_visitados(self):
-        matriz = [[0 for col in range(self.tamanho_matriz)]
-                  for row in range(self.tamanho_matriz)]
-        for i in range(self.tamanho_matriz):
-            for j in range(self.tamanho_matriz):
-                matriz[i][j] = 0 if self.labirinto[i][j] != "1" else 1
+        matriz = [[0 for col in range(tamanho_matriz)]
+                  for row in range(tamanho_matriz)]
+        for i in range(tamanho_matriz):
+            for j in range(tamanho_matriz):
+                matriz[i][j] = 0 if labirinto[i][j] != "1" else 1
 
         # Marca entrada como 1, supondo entrada sempre (0,0)
         matriz[0][0] = 1
         return matriz
 
     def cria_direcoes(self):
-        direcoes = [[0 for col in range(self.tamanho_matriz)]
-                    for row in range(self.tamanho_matriz)]
-        for i in range(self.tamanho_matriz):
-            for j in range(self.tamanho_matriz):
-                if self.labirinto[i][j] != '1':
+        direcoes = [[0 for col in range(tamanho_matriz)]
+                    for row in range(tamanho_matriz)]
+        for i in range(tamanho_matriz):
+            for j in range(tamanho_matriz):
+                if labirinto[i][j] != '1':
                     self.posicao = (i, j)
                     direcoes[i][j] = self.nova_direcao()
         self.posicao = (0, 0)
@@ -123,8 +124,8 @@ class Cromossomo:
                 direcao = random.randint(1, 9)
             nova_posicao = self.calcula_nova_posicao(direcao)
 
-            if 0 <= nova_posicao[0] < self.tamanho_matriz and 0 <= nova_posicao[1] < self.tamanho_matriz:
-                if self.labirinto[nova_posicao[0]][nova_posicao[1]] != "1":
+            if 0 <= nova_posicao[0] < tamanho_matriz and 0 <= nova_posicao[1] < tamanho_matriz:
+                if labirinto[nova_posicao[0]][nova_posicao[1]] != "1":
                     posicao_valida = True
 
         return direcao
@@ -132,7 +133,7 @@ class Cromossomo:
     def movimenta(self, direcao):
         self.posicao_anterior = self.posicao
         self.posicao = self.calcula_nova_posicao(direcao)
-        if self.labirinto[self.posicao[0]][self.posicao[1]] == 'S':
+        if labirinto[self.posicao[0]][self.posicao[1]] == 'S':
             self.saida = list(self.posicao)
             self.encontrou_saida = True
 
@@ -141,8 +142,8 @@ class Cromossomo:
 
     def __str__(self):
         to_string = ""
-        for i in range(self.tamanho_matriz):
-            to_string += str(self.labirinto[i]) + " - " + str(
+        for i in range(tamanho_matriz):
+            to_string += str(labirinto[i]) + " - " + str(
                 self.visitados[i]) + " - " + str(self.direcoes[i]) + "\n"
         to_string += ("Heurística: " + str(self.heuristica()) + " - Posição: " + str(self.posicao) +
                       " - Encontrou: " + str(self.encontrou_saida) + " - Onde: " + str(self.saida) + " - Passos: " + str(len(self.passos)))
@@ -150,31 +151,29 @@ class Cromossomo:
 
 
 def replica_direcoes(c1, c2, linha_inicial, linha_final):
-    n = c1.tamanho_matriz
-    for i in range(linha_inicial, n):
-        for j in range(n):
+    for i in range(linha_inicial, tamanho_matriz):
+        for j in range(tamanho_matriz):
             c2.direcoes[i][j] = c1.direcoes[i][j]
 
 
 def cruza_cromossomos(c1, c2):
-    n = c1.tamanho_matriz
-    filho_1 = Cromossomo(c1.labirinto, c1.tamanho_matriz)
-    filho_2 = Cromossomo(c1.labirinto, c1.tamanho_matriz)
+    filho_1 = Cromossomo()
+    filho_2 = Cromossomo()
 
-    replica_direcoes(c1, filho_1, 0, ((n/2)-1))
-    replica_direcoes(c2, filho_1, n/2, n)
-    replica_direcoes(c2, filho_2, 0, ((n/2)-1))
-    replica_direcoes(c1, filho_2, n/2, n)
+    replica_direcoes(c1, filho_1, 0, ((tamanho_matriz/2)-1))
+    replica_direcoes(c2, filho_1, tamanho_matriz/2, tamanho_matriz)
+    replica_direcoes(c2, filho_2, 0, ((tamanho_matriz/2)-1))
+    replica_direcoes(c1, filho_2, tamanho_matriz/2, tamanho_matriz)
 
 
-def inicializa_populacao(labirinto, tamanho_matriz):
+def inicializa_populacao():
     populacao_inicial = []
     for i in range(TAM_POPULACAO_INICIAL):
-        populacao_inicial.append(Cromossomo(labirinto, tamanho_matriz))
+        populacao_inicial.append(Cromossomo())
         populacao_inicial[i].executa()
         print(populacao_inicial[i])
 
-def imprime_labirinto(labirinto, tamanho_matriz):
+def imprime_labirinto():
     pass
 
 
