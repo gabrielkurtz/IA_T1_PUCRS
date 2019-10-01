@@ -4,11 +4,15 @@ import math
 ELITISMO = 3
 TORNEIO = 3
 TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
+FATOR_MAXIMO_PASSOS = 3
+
 MUTACAO_ANTES_DE_ACHAR_SAIDA = 20
 MUTACAO_DEPOIS_DE_ACHAR_SAIDA = 5
 
 labirinto = []
 tamanho_matriz = 0
+maximo_passos = 0
+
 
 def main():
 
@@ -17,14 +21,18 @@ def main():
     global tamanho_matriz
     tamanho_matriz = int(f.readline())
 
+    global maximo_passos
+    maximo_passos = int(math.pow(tamanho_matriz, FATOR_MAXIMO_PASSOS))
+
     # Labirinto conforme no arquivo de entrada
     # [0]: informacao original - E: entrada - S: saída - 0: pode andar - 1: parede
     global labirinto
-    for i in range(tamanho_matriz):
+    for _ in range(tamanho_matriz):
         labirinto.append(f.readline().split())
 
     inicializa_populacao()
 
+    
 
 class Cromossomo:
     def __init__(self):
@@ -34,7 +42,7 @@ class Cromossomo:
         self.posicao_anterior = (0, 0)
         self.passos = []
 
-        self.tentativas = 1000
+        self.tentativas = maximo_passos
         self.percentual_mutacao = 20
 
         # Movimentos possiveis e efeito na posição
@@ -52,14 +60,15 @@ class Cromossomo:
         self.direcoes = self.cria_direcoes()
 
     def cria_visitados(self):
-        matriz = [[0 for col in range(tamanho_matriz)]
+        matriz = [["0" for col in range(tamanho_matriz)]
                   for row in range(tamanho_matriz)]
         for i in range(tamanho_matriz):
             for j in range(tamanho_matriz):
-                matriz[i][j] = 0 if labirinto[i][j] != "1" else 1
+                matriz[i][j] = "0" if labirinto[i][j] != "1" else "1"
 
-        # Marca entrada como 1, supondo entrada sempre (0,0)
-        matriz[0][0] = 1
+        # Marca entrada como $, supondo entrada sempre (0,0)
+        matriz[0][0] = "$"
+
         return matriz
 
     def cria_direcoes(self):
@@ -93,7 +102,7 @@ class Cromossomo:
     def executa(self):
         self.passos = []
 
-        for i in range(self.tentativas):
+        for _ in range(self.tentativas):
             if(self.deve_mudar_direcao()):
                 direcao = self.nova_direcao()
                 self.direcoes[self.posicao[0]][self.posicao[1]] = direcao
@@ -133,18 +142,30 @@ class Cromossomo:
     def movimenta(self, direcao):
         self.posicao_anterior = self.posicao
         self.posicao = self.calcula_nova_posicao(direcao)
+        if self.visitados[self.posicao[0]][self.posicao[1]] != '$':
+            self.visitados[self.posicao[0]][self.posicao[1]] = '$'
         if labirinto[self.posicao[0]][self.posicao[1]] == 'S':
-            self.saida = list(self.posicao)
-            self.encontrou_saida = True
+            self.encontrar_saida()
+        
+
+    def encontrar_saida(self):
+        self.saida = list(self.posicao)
+        self.encontrou_saida = True
 
     def heuristica(self):
-        return math.sqrt(math.pow(self.posicao[0], 2) + math.pow(self.posicao[1], 2))
+        if not self.encontrou_saida:
+            aptidao = math.sqrt(
+                math.pow(self.posicao[0], 2) + math.pow(self.posicao[1], 2))
+        else:
+            aptidao = maximo_passos - \
+                len(self.passos) + math.sqrt(2*math.pow(tamanho_matriz, 2))
+        return aptidao
 
     def __str__(self):
         to_string = ""
         for i in range(tamanho_matriz):
-            to_string += str(labirinto[i]) + " - " + str(
-                self.visitados[i]) + " - " + str(self.direcoes[i]) + "\n"
+            to_string += str(self.visitados[i]) + \
+                " - " + str(self.direcoes[i]) + "\n"
         to_string += ("Heurística: " + str(self.heuristica()) + " - Posição: " + str(self.posicao) +
                       " - Encontrou: " + str(self.encontrou_saida) + " - Onde: " + str(self.saida) + " - Passos: " + str(len(self.passos)))
         return to_string
@@ -171,11 +192,21 @@ def inicializa_populacao():
     for i in range(TAM_POPULACAO_INICIAL):
         populacao_inicial.append(Cromossomo())
         populacao_inicial[i].executa()
-        print(populacao_inicial[i])
+    imprime_labirinto()
+    imprime_populacao(populacao_inicial)
+
 
 def imprime_labirinto():
-    pass
+    print("Labirinto: ")
 
+    for i in range(tamanho_matriz):
+        print(str(labirinto[i]))
+
+def imprime_populacao(populacao):
+    for i in range(TAM_POPULACAO_INICIAL):        
+        print("----------------------------------------")
+        print("Cromossomo " + str(i))
+        print(populacao[i])
 
 if __name__ == "__main__":
     main()
