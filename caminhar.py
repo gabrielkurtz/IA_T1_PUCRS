@@ -1,13 +1,13 @@
 import random
 import math
 
-GERACOES = 10
-ELITISMO = 0
+GERACOES = 20
+ELITISMO = 3
 TORNEIO = 3
 TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
 FATOR_MAXIMO_PASSOS = 2
-
-MUTACAO = 5
+MUTACAO_MINIMA = 2
+MUTACAO_MAXIMA = 50
 
 labirinto = []
 tamanho_matriz = 0
@@ -15,9 +15,12 @@ maximo_passos = 0
 
 contador_cromossomos = 1
 
+alguem_achou_saida = False
+mutacao = MUTACAO_MAXIMA
+
 def main():
 
-    f = open("labirinto1_10.txt", "r")
+    f = open("labirinto4_20.txt", "r")
 
     global tamanho_matriz
     tamanho_matriz = int(f.readline())
@@ -30,6 +33,8 @@ def main():
     global labirinto
     for _ in range(tamanho_matriz):
         labirinto.append(f.readline().split())
+
+    imprime_labirinto()
 
     populacao = inicializa_populacao()
     
@@ -52,7 +57,7 @@ class Cromossomo:
         self.passos = []
 
         self.tentativas = maximo_passos
-        self.percentual_mutacao = MUTACAO
+        self.percentual_mutacao = mutacao
 
         # Movimentos possiveis e efeito na posição
         self.movimentos = self.cria_movimentos()
@@ -114,6 +119,7 @@ class Cromossomo:
         self.posicao = (0,0)
         self.posicao_anterior = (0,0)
         self.encontrou_saida = False
+        self.percentual_mutacao = mutacao
 
     def executa(self):
         self.reinicia_cromossomo()
@@ -141,17 +147,23 @@ class Cromossomo:
         return False
 
     def nova_direcao(self):
+        count = 0
         posicao_valida = False
         direcao = 5
         while(not posicao_valida):
+            # Posicao provavelmente nao oferece movimento valido
+            if direcao == 0 and count > 1000:
+                break
             direcao = random.randint(1, 9)
             while direcao == 5:
                 direcao = random.randint(1, 9)
             nova_posicao = self.calcula_nova_posicao(direcao)
 
-            if 0 <= nova_posicao[0] < tamanho_matriz and 0 <= nova_posicao[1] < tamanho_matriz:
-                if labirinto[nova_posicao[0]][nova_posicao[1]] != "1":
-                    posicao_valida = True
+            if 0 <= nova_posicao[0] < tamanho_matriz and 0 <= nova_posicao[1] < tamanho_matriz and labirinto[nova_posicao[0]][nova_posicao[1]] != "1":
+                posicao_valida = True
+            else: 
+                count += 1
+                direcao = 0
 
         return direcao
 
@@ -167,6 +179,8 @@ class Cromossomo:
     def encontrar_saida(self):
         self.saida = list(self.posicao)
         self.encontrou_saida = True
+        global alguem_achou_saida
+        alguem_achou_saida = True
 
     def heuristica(self):
         if not self.encontrou_saida:
@@ -186,7 +200,7 @@ class Cromossomo:
                 " - " + str(self.direcoes[i]) + "\n"
         to_string += ("Heurística: " + str(self.heuristica()) + " - Posição: " + str(self.posicao) +
                       " - Encontrou: " + str(self.encontrou_saida) + " - Onde: " + str(self.saida) + " - Passos: " + str(len(self.passos)))
-        return to_string
+        return to_string.replace("'", "").replace(",", "")
 
 
 def replica_direcoes(c1, c2, linha_inicial, linha_final):
@@ -214,13 +228,27 @@ def inicializa_populacao():
     return populacao_inicial
 
 def executa_geracao(populacao):
+    global alguem_achou_saida
+    alguem_achou_saida = False
+
     for i in range(TAM_POPULACAO_INICIAL):
         populacao[i].executa()
+    populacao.sort(key=lambda c: c.heuristica(), reverse=True)
     imprime_labirinto()
     imprime_populacao(populacao)
 
+    global mutacao
+    if alguem_achou_saida:
+        mutacao = MUTACAO_MINIMA
+    else:
+        mutacao += 5
+
+    if mutacao < MUTACAO_MINIMA:
+        mutacao = MUTACAO_MINIMA
+    if mutacao > MUTACAO_MAXIMA:
+        mutacao = MUTACAO_MAXIMA
+
 def nova_geracao(populacao):
-    populacao.sort(key=lambda c: c.heuristica(), reverse=True)
     p = []
     
     for i in range(ELITISMO):
@@ -253,7 +281,7 @@ def imprime_labirinto():
     print("Labirinto: ")
 
     for i in range(tamanho_matriz):
-        print(str(labirinto[i]))
+        print(str(labirinto[i]).replace("'", "").replace(",", ""))
 
 def imprime_populacao(populacao):
     for i in range(TAM_POPULACAO_INICIAL):        
