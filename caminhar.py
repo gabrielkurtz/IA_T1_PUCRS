@@ -4,18 +4,17 @@ import sys
 import copy
 
 UNICODE = False
-
-LOG_COMPLETO = True
+LOG_COMPLETO = False
 GERACOES_ENTRE_LOG_SIMPLES = 5
 
 GERACOES = 100
+FATOR_MAXIMO_PASSOS = 2
 ELITISMO = 2
 TORNEIO = 4
-TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
-FATOR_MAXIMO_PASSOS = 2
 MUTACAO_MINIMA = 4
 MUTACAO_MAXIMA = 50
 
+TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
 labirinto = []
 tamanho_matriz = 0
 maximo_passos = 0
@@ -244,30 +243,37 @@ class Cromossomo:
         return to_string.replace("'", "").replace(",", "")
 
 
-def replica_direcoes(c1, c2, linha_inicial, linha_final):
-    for i in range(linha_inicial, tamanho_matriz):
-        for j in range(tamanho_matriz):
-            c2.direcoes[i][j] = c1.direcoes[i][j]
-
-
 def cruza_cromossomos(c1, c2):
     filho_1 = Cromossomo()
     filho_2 = Cromossomo()
 
-    replica_direcoes(c1, filho_1, 0, ((tamanho_matriz//2)-1))
-    replica_direcoes(c2, filho_1, tamanho_matriz//2, tamanho_matriz)
-    replica_direcoes(c2, filho_2, 0, ((tamanho_matriz//2)-1))
-    replica_direcoes(c1, filho_2, tamanho_matriz//2, tamanho_matriz)
+    mascara = gera_mascara()
+
+    for i in range(tamanho_matriz):
+        for j in range(tamanho_matriz):
+            if mascara[i][j] == 1:
+                filho_1.direcoes[i][j] = c1.direcoes[i][j]
+                filho_2.direcoes[i][j] = c2.direcoes[i][j]
+            else:
+                filho_1.direcoes[i][j] = c2.direcoes[i][j]
+                filho_2.direcoes[i][j] = c1.direcoes[i][j]
 
     return filho_1, filho_2
 
+def gera_mascara():
+    mascara = []
+    for i in range(tamanho_matriz):
+        linha_nova = []
+        for j in range(tamanho_matriz):
+            linha_nova.append(random.randint(0, 1))
+        mascara.append(linha_nova)
+    return mascara
 
 def inicializa_populacao():
     populacao_inicial = []
     for i in range(TAM_POPULACAO_INICIAL):
         populacao_inicial.append(Cromossomo())
     return populacao_inicial
-
 
 def executa_geracao(populacao):
     global alguem_achou_saida
@@ -277,13 +283,12 @@ def executa_geracao(populacao):
         populacao[i].executa()
     populacao.sort(key=lambda c: c.heuristica(), reverse=True)
     global melhor
-    
+
     if (melhor == None) or (populacao[0].heuristica() > melhor.heuristica()):
         melhor = copy.copy(populacao[0])
-    
+
     imprime_labirinto()
     imprime_populacao(populacao)
-
 
     global mutacao
     if alguem_achou_saida:
@@ -296,10 +301,9 @@ def executa_geracao(populacao):
     if mutacao > MUTACAO_MAXIMA:
         mutacao = MUTACAO_MAXIMA
 
-
 def nova_geracao(populacao):
     logar("----------------------------------------------------------------")
-    
+
     p = []
 
     for i in range(ELITISMO):
@@ -331,11 +335,9 @@ def nova_geracao(populacao):
 
     return p
 
-
 def logar(s):
     if LOG_COMPLETO:
         print(s)
-
 
 def logar_simples(populacao):
     m = populacao[0]
@@ -351,11 +353,9 @@ def imprime_labirinto():
     for i in range(tamanho_matriz):
         logar(str(labirinto[i]).replace("'", "").replace(",", ""))
 
-
 def imprime_populacao(populacao):
     for i in range(TAM_POPULACAO_INICIAL):
         logar(populacao[i])
-
 
 if __name__ == "__main__":
     main()
