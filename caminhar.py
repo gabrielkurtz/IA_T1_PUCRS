@@ -1,8 +1,9 @@
 import random
 import math
 
-ELITISMO = 3
-TORNEIO = 3
+GERACOES = 2
+ELITISMO = 5
+TORNEIO = 0
 TAM_POPULACAO_INICIAL = ELITISMO + 2*TORNEIO
 FATOR_MAXIMO_PASSOS = 3
 
@@ -13,6 +14,7 @@ labirinto = []
 tamanho_matriz = 0
 maximo_passos = 0
 
+contador_cromossomos = 1
 
 def main():
 
@@ -30,12 +32,20 @@ def main():
     for _ in range(tamanho_matriz):
         labirinto.append(f.readline().split())
 
-    inicializa_populacao()
-
+    populacao = inicializa_populacao()
     
+    for i in range(GERACOES):
+        executa_geracao(populacao)
+        populacao = nova_geracao(populacao)
+
+
 
 class Cromossomo:
     def __init__(self):
+        global contador_cromossomos
+        self.nome = contador_cromossomos
+        contador_cromossomos += 1
+        
         self.saida = None
         self.encontrou_saida = False
         self.posicao = (0, 0)
@@ -99,8 +109,15 @@ class Cromossomo:
         diferenca = self.movimentos[direcao]
         return (self.posicao[0] + diferenca[0], self.posicao[1] + diferenca[1])
 
-    def executa(self):
+    def reinicia_cromossomo(self):
+        self.visitados = self.cria_visitados()
         self.passos = []
+        self.posicao = (0,0)
+        self.posicao_anterior = (0,0)
+        self.encontrou_saida = False
+
+    def executa(self):
+        self.reinicia_cromossomo()
 
         for _ in range(self.tentativas):
             if(self.deve_mudar_direcao()):
@@ -162,7 +179,9 @@ class Cromossomo:
         return aptidao
 
     def __str__(self):
-        to_string = ""
+        to_string = "----------------------------------------------------------------\n"
+                
+        to_string += ("Cromossomo " + str(self.nome) + "\n")
         for i in range(tamanho_matriz):
             to_string += str(self.visitados[i]) + \
                 " - " + str(self.direcoes[i]) + "\n"
@@ -191,9 +210,21 @@ def inicializa_populacao():
     populacao_inicial = []
     for i in range(TAM_POPULACAO_INICIAL):
         populacao_inicial.append(Cromossomo())
-        populacao_inicial[i].executa()
+    return populacao_inicial
+
+def executa_geracao(populacao):
+    for i in range(TAM_POPULACAO_INICIAL):
+        populacao[i].executa()
     imprime_labirinto()
-    imprime_populacao(populacao_inicial)
+    imprime_populacao(populacao)
+
+def nova_geracao(populacao):
+    populacao.sort(key=lambda c: c.heuristica(), reverse=True)
+    p = []
+    
+    for i in range(ELITISMO):
+        p.append(populacao[i])
+    return p
 
 
 def imprime_labirinto():
@@ -204,8 +235,6 @@ def imprime_labirinto():
 
 def imprime_populacao(populacao):
     for i in range(TAM_POPULACAO_INICIAL):        
-        print("----------------------------------------")
-        print("Cromossomo " + str(i))
         print(populacao[i])
 
 if __name__ == "__main__":
