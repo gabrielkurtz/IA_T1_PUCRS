@@ -1,0 +1,68 @@
+16280132@l3870037:~/DriveH/AI/Trabalho1/IA_T1_PUCRS$ python caminhar.py labirinto1_10v2.txt 
+----------------------------------------------------------------
+Iniciando Arquivo: labirinto1_10v2.txt
+Tamanho Matriz: 10
+Gerações: 100
+População Total: 10
+Elitismo: 2
+Torneios: 4
+Tamanho Cromossomo: 100
+Mutacao Inicial (Minima/Maxima): 10 (4/50)
+----------------------------------------------------------------
+-> Melhor Atual - Geracao: 1 - Melhor: Cromossomo 9 - Aptidão: 72.14213562373095 - Encontrou: True - Passos: 42
+-> Melhor Global - Geracao: 1 - Melhor: Cromossomo 9 - Aptidão: 72.14213562373095 - Encontrou: True - Passos: 42
+-> Melhor Atual - Geracao: 5 - Melhor: Cromossomo 38 - Aptidão: 10.816653826391969 - Encontrou: False - Passos: 100
+-> Melhor Global - Geracao: 5 - Melhor: Cromossomo 9 - Aptidão: 72.14213562373095 - Encontrou: True - Passos: 42
+-> Melhor Atual - Geracao: 10 - Melhor: Cromossomo 62 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Global - Geracao: 10 - Melhor: Cromossomo 62 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Atual - Geracao: 15 - Melhor: Cromossomo 103 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Global - Geracao: 15 - Melhor: Cromossomo 62 - Aptidão: 101.14213562373095 - Encontrou: True - Passos: 13
+-> Melhor Atual - Geracao: 20 - Melhor: Cromossomo 127 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Global - Geracao: 20 - Melhor: Cromossomo 127 - Aptidão: 102.14213562373095 - Encontrou: True - Passos: 12
+-> Melhor Atual - Geracao: 25 - Melhor: Cromossomo 200 - Aptidão: 103.14213562373095 - Encontrou: True - Passos: 11
+-> Melhor Global - Geracao: 25 - Melhor: Cromossomo 193 - Aptidão: 103.14213562373095 - Encontrou: True - Passos: 11
+-> Melhor Atual - Geracao: 30 - Melhor: Cromossomo 200 - Aptidão: 103.14213562373095 - Encontrou: True - Passos: 11
+-> Melhor Global - Geracao: 30 - Melhor: Cromossomo 193 - Aptidão: 103.14213562373095 - Encontrou: True - Passos: 11
+-> Melhor Atual - Geracao: 35 - Melhor: Cromossomo 251 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 35 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 40 - Melhor: Cromossomo 310 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 40 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 45 - Melhor: Cromossomo 342 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 45 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 50 - Melhor: Cromossomo 342 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 50 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 55 - Melhor: Cromossomo 414 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 55 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 60 - Melhor: Cromossomo 459 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 60 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 65 - Melhor: Cromossomo 459 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 65 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 70 - Melhor: Cromossomo 523 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 70 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 75 - Melhor: Cromossomo 539 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 75 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 80 - Melhor: Cromossomo 563 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 80 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 85 - Melhor: Cromossomo 676 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 85 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 90 - Melhor: Cromossomo 699 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 90 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 95 - Melhor: Cromossomo 747 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 95 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Atual - Geracao: 100 - Melhor: Cromossomo 782 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+-> Melhor Global - Geracao: 100 - Melhor: Cromossomo 247 - Aptidão: 104.14213562373095 - Encontrou: True - Passos: 10
+----------------------------------------------------------------
+MELHOR CROMOSSOMO
+----------------------------------------------------------------
+Cromossomo 247 - Caminho percorrido - Genes(direções memorizadas)
+[$ 0 1 1 0 0 0 0 0 1] - [3 3 X X 1 6 4 4 3 X]
+[1 $ 0 0 0 1 0 1 0 0] - [X 3 1 6 1 X 3 X 6 7]
+[0 0 $ 0 1 1 0 0 1 1] - [2 8 3 2 X X 6 9 X X]
+[0 1 1 $ 0 1 1 0 0 1] - [2 X X 3 1 X X 6 7 X]
+[0 0 0 0 $ 1 1 0 1 1] - [8 4 9 3 7 X X 2 X X]
+[1 1 1 1 $ 1 1 0 1 1] - [X X X X 8 X X 8 X X]
+[1 0 1 1 $ 1 1 0 0 0] - [X 1 X X 1 X X 8 6 4]
+[$ 0 $ $ 0 1 1 1 1 1] - [3 8 1 4 4 X X X X X]
+[1 $ 1 0 0 0 0 0 1 1] - [X 7 X 7 7 7 4 4 X X]
+[1 0 1 0 1 0 0 0 0 0] - [X 8 X 8 X 8 6 8 4 4]
+Aptidão: 104.14213562373095 - Posição: (7 0) - Encontrou: True - Passos: 10
