@@ -74,7 +74,7 @@ def main():
     print("----------------------------------------------------------------")
     print("MELHOR CROMOSSOMO")
     print(melhor)
-
+    print("Passos: " + str(melhor.passos))
 
 class Cromossomo:
     def __init__(self):
@@ -94,7 +94,6 @@ class Cromossomo:
         # Movimentos possiveis e efeito na posição
         self.movimentos = self.cria_movimentos()
 
-        # Acrescenta informacao extra para cada campo no formato [str,int,int], onde:
         # [1]: 0: campo ainda não foi visitado pelo algoritmo - 1: já foi visitado
         # Guarda a versao inicial para reiniciar nas fases de seleção genética
         self.visitados_inicial = self.cria_visitados()
